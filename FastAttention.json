@@ -5,7 +5,7 @@
     "code": "https://github.com/lucidrains/memory-compressed-attention",
     "comment": "compresses key and value + blocked attention",
     "complexity": "{b}*\\frac{N}{b}*\\frac{N}{{b}*{k}}*{D}",
-    "causal": false
+    "causal": true
   },
   {
     "name": "CBAM",
@@ -13,6 +13,14 @@
     "code": "https://github.com/Jongchan/attention-module",
     "comment": "combines the SE attention with a per pixel(local) weight",
     "complexity": "({N}*{D}+\\frac{{D}^2}{r})+({N}*{D}*{k}^2)",
+    "causal": false
+  },
+  {
+    "name": "Set Transformer",
+    "arxiv_id": "1810.00825",
+    "code": "https://github.com/juho-lee/set_transformer",
+    "comment": "uses K relay nodes",
+    "complexity": "{N}*{K}*{D}",
     "causal": false
   },
   {
@@ -32,7 +40,7 @@
     "causal": false
   },
   {
-    "name": "StartTransformer",
+    "name": "StarTransformer",
     "arxiv_id": "1902.09113",
     "code": "https://github.com/fastnlp/fastNLP/blob/master/fastNLP/modules/encoder/star_transformer.py",
     "comment": "uses a relay(global) node and attends to/from that node",
@@ -42,7 +50,7 @@
   {
     "name": "Sparse Transformer",
     "arxiv_id": "1904.10509",
-    "code": "https://github.com/ptillet/torch-blocksparse",
+    "code": "https://github.com/microsoft/DeepSpeed/blob/master/deepspeed/ops/sparse_attention/sparse_self_attention.py",
     "comment": "sparse block based attention",
     "complexity": "{N}*\\sqrt{N}*{D}",
     "causal": true
@@ -127,6 +135,14 @@
     "causal": true
   },
   {
+    "name": "TaLK",
+    "arxiv_id": "2002.03184",
+    "code": "https://github.com/lioutasb/TaLKConvolutions",
+    "comment": "calculate mean over a dynamic subsequence around each token with the help of summed-area table",
+    "complexity": "{N}*{D}",
+    "causal": true
+  },
+  {
     "name": "Transformer on a Diet",
     "arxiv_id": "2002.06170",
     "code": "https://github.com/cgraywang/transformer-on-diet",
@@ -199,6 +215,7 @@
   {
     "name": "Synthesizer",
     "arxiv_id": "2005.00743",
+    "code": "https://github.com/leaderj1001/Synthesizer-Rethinking-Self-Attention-Transformer-Models",
     "comment": "does not compute pairwise interactions",
     "complexity": "{N}^2*{D}",
     "causal": true
@@ -212,9 +229,9 @@
     "causal": false
   },
   {
-    "name": "Performer",
+    "name": "Performer(FAVOR)",
     "arxiv_id": "2006.03555",
-    "code": "https://github.com/google-research/google-research/tree/master/performer/fast_self_attention",
+    "code": "https://github.com/google-research/google-research/tree/master/performer/fast_attention",
     "comment": "calculate an unbiased stochastic approximation of the attention matrix",
     "complexity": "{N}*{D}^2*\\log({D})",
     "causal": true
@@ -258,8 +275,17 @@
     "causal": false
   },
   {
+    "name": "Kronecker Attention",
+    "arxiv_id": "2007.08442",
+    "code": "https://github.com/lucidrains/kronecker-attention-pytorch",
+    "comment": "uses horizontal and lateral average matrices",
+    "complexity": "({H}+{W})^2*{D}",
+    "causal": false
+  },
+  {
     "name": "BigBird",
     "arxiv_id": "2007.14062",
+    "code": "https://github.com/microsoft/DeepSpeed/blob/master/deepspeed/ops/sparse_attention/sparse_self_attention.py",
     "comment": "ETC with random connections",
     "complexity": "({g}^2+{N}*({k}+{g}+{r}))*{D}",
     "causal": false
@@ -270,5 +296,84 @@
     "comment": "decompose the full attention tensor into rank one tensors (CP decomposition)",
     "complexity": "({D}*{H}*{W}+{D}^2+{H}^2+{W}^2)*{r}",
     "causal": false
+  },
+  {
+    "name": "FracTAL",
+    "arxiv_id": "2009.02062",
+    "code": "IN_PAPER",
+    "comment": "uses the fractal tanimoto similarity to compare queries with keys inside the attention module",
+    "complexity": "{H}*{W}*{D}",
+    "causal": false
+  },
+  {
+    "name": "Performer(FAVOR+)",
+    "arxiv_id": "2009.14794",
+    "code": "https://github.com/google-research/google-research/tree/master/performer",
+    "comment": "unbiased approximation of the attention matrix with softmax kernel",
+    "complexity": "{N}*{m}*{D}",
+    "causal": true
+  },
+  {
+    "name": "SMYRF",
+    "arxiv_id": "2010.05315",
+    "code": "https://github.com/giannisdaras/smyrf",
+    "comment": "LSH with balanced clusters",
+    "complexity": "{N}*\\log({N})*{D}",
+    "causal": false
+  },
+  {
+    "name": "Memformer",
+    "arxiv_id": "2010.06891",
+    "code": "https://github.com/lucidrains/memformer",
+    "comment": "attend to memory slots + Memory-Replay BackPropagation",
+    "complexity": "{N}*{D}",
+    "causal": true
+  },
+  {
+    "name": "Informer",
+    "arxiv_id": "2012.07436",
+    "code": "https://github.com/zhouhaoyi/Informer2020",
+    "comment": "sparse attention + funnel like encoder",
+    "complexity": "{N}*\\log({N})*{D}",
+    "causal": true
+  },
+  {
+    "name": "SLiM",
+    "arxiv_id": "2012.11346",
+    "code": "https://github.com/google-research/google-research/tree/master/performer/models/slim_performer",
+    "comment": "Performer but with sublinear Memory usage",
+    "complexity": "{N}*{m}*{D}",
+    "causal": true
+  },
+  {
+    "name": "Nystromformer",
+    "arxiv_id": "2102.03902",
+    "code": "https://github.com/mlpen/Nystromformer",
+    "comment": "uses Nystrom method to approximate the attention matrix",
+    "complexity": "{N}*{D}",
+    "causal": false
+  },
+  {
+    "name": "LambdaNetworks",
+    "arxiv_id": "2102.08602",
+    "code": "https://github.com/lucidrains/lambda-networks",
+    "comment": "generates a linear layer based on context + decouple pos/context",
+    "complexity": "{N}^2*{k}*\\frac{v}{h}",
+    "causal": true
+  },
+  {
+    "name": "SecretlyFastWeight",
+    "arxiv_id": "2102.11174",
+    "code": "https://github.com/ischlag/fast-weight-transformers",
+    "comment": "show that linear transformers are basically fast weight networks + propose a new kernel function to linearise attention, balancing simplicity and effectiveness",
+    "complexity": "{N}*{m}*{D}",
+    "causal": true
+  },
+  {
+    "name": "RFA",
+    "arxiv_id": "2103.02143",
+    "comment": "kernel approximation and also transformers are rnn",
+    "complexity": "{N}*{D}",
+    "causal": true
   }
 ]
